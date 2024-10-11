@@ -1,0 +1,29 @@
+### SQL Queries
+
+```sql
+CREATE TABLE shop01 (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    model_name VARCHAR(255),
+    price INT, 
+    warranty VARCHAR(255),
+    in_stock BOOLEAN,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE shop02 (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    model_name VARCHAR(255),
+    price INT, 
+    warranty VARCHAR(255),
+    in_stock BOOLEAN,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE shop03 (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    model_name VARCHAR(255),
+    price INT, 
+    warranty VARCHAR(255),
+    in_stock BOOLEAN,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
