@@ -28,8 +28,7 @@ switch ($method) {
         break;
 
     case 'POST':
-        // Ensure all fields are passed
-        if (isset($input['brand'], $input['model'], $input['processor'], $input['ram'], $input['storage'], $input['display'], $input['gpu'], $input['weight'], $input['battery'])) {
+        if (isset($input['brand'], $input['model'], $input['processor'], $input['ram'], $input['storage'], $input['display'], $input['gpu'], $input['weight'], $input['battery'], $input['image_link'])) {
             $brand = $input['brand'];
             $model = $input['model'];
             $processor = $input['processor'];
@@ -39,10 +38,18 @@ switch ($method) {
             $gpu = $input['gpu'];
             $weight = $input['weight'];
             $battery = $input['battery'];
+            $image_link = $input['image_link'];
 
-            $conn->query("INSERT INTO laptop (brand, model, processor, ram, storage, display, gpu, weight, battery) 
-                          VALUES ('$brand', '$model', '$processor', '$ram', '$storage', '$display', '$gpu', '$weight', '$battery')");
-            echo json_encode(["message" => "Laptop added successfully"]);
+            $stmt = $conn->prepare("INSERT INTO laptop (brand, model, processor, ram, storage, display, gpu, weight, battery, image_link) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssssssssss", $brand, $model, $processor, $ram, $storage, $display, $gpu, $weight, $battery, $image_link);
+            $stmt->execute();
+
+            if ($stmt->affected_rows > 0) {
+                echo json_encode(["message" => "Laptop added successfully"]);
+            } else {
+                echo json_encode(["message" => "Error adding laptop"]);
+            }
+            $stmt->close();
         } else {
             echo json_encode(["message" => "Missing required fields"]);
         }
@@ -51,7 +58,7 @@ switch ($method) {
     case 'PUT':
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
-            if (isset($input['brand'], $input['model'], $input['processor'], $input['ram'], $input['storage'], $input['display'], $input['gpu'], $input['weight'], $input['battery'])) {
+            if (isset($input['brand'], $input['model'], $input['processor'], $input['ram'], $input['storage'], $input['display'], $input['gpu'], $input['weight'], $input['battery'], $input['image_link'])) {
                 $brand = $input['brand'];
                 $model = $input['model'];
                 $processor = $input['processor'];
@@ -61,9 +68,18 @@ switch ($method) {
                 $gpu = $input['gpu'];
                 $weight = $input['weight'];
                 $battery = $input['battery'];
+                $image_link = $input['image_link'];
 
-                $conn->query("UPDATE laptop SET brand='$brand', model='$model', processor='$processor', ram='$ram', storage='$storage', display='$display', gpu='$gpu', weight='$weight', battery='$battery' WHERE id=$id");
-                echo json_encode(["message" => "Laptop updated successfully"]);
+                $stmt = $conn->prepare("UPDATE laptop SET brand=?, model=?, processor=?, ram=?, storage=?, display=?, gpu=?, weight=?, battery=?, image_link=? WHERE id=?");
+                $stmt->bind_param("ssssssssssi", $brand, $model, $processor, $ram, $storage, $display, $gpu, $weight, $battery, $image_link, $id);
+                $stmt->execute();
+
+                if ($stmt->affected_rows > 0) {
+                    echo json_encode(["message" => "Laptop updated successfully"]);
+                } else {
+                    echo json_encode(["message" => "Laptop not found or no changes made"]);
+                }
+                $stmt->close();
             } else {
                 echo json_encode(["message" => "Missing required fields"]);
             }
