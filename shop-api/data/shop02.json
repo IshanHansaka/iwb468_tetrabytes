@@ -1,0 +1,37 @@
+{
+  "product01": {
+    "id": 1,
+    "model_name": "Asus Vivobook Pro 15 Q543M Ultra9",
+    "price": 445000,
+    "warranty": "1 Year",
+    "in_stock": true
+  },
+  "product02": {
+    "id": 2,
+    "model_name": "MSI CYBORG 15 A13UCX",
+    "price": 305000,
+    "warranty": "2 Year",
+    "in_stock": true
+  },
+  "product03": {
+    "id": 3,
+    "model_name": "Lenovo Legion 9 16IRX9",
+    "price": 1393000,
+    "warranty": "2 Year",
+    "in_stock": true
+  },
+  "product04": {
+    "id": 4,
+    "model_name": "Asus ROG Strix SCAR 16 G634JZR",
+    "price": 1585000,
+    "warranty": "2 Year",
+    "in_stock": true
+  },
+  "product05": {
+    "id": 5,
+    "model_name": "MSI Modern 15 B13M",
+    "price": 210000,
+    "warranty": "1 Year",
+    "in_stock": false
+  }
+}
