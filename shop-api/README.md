@@ -2,7 +2,7 @@
 
 ```sql
 CREATE TABLE shop01 (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id INT PRIMARY KEY,
     model_name VARCHAR(255),
     price INT,
     warranty VARCHAR(255),
@@ -11,7 +11,7 @@ CREATE TABLE shop01 (
 );
 
 CREATE TABLE shop02 (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id INT PRIMARY KEY,
     model_name VARCHAR(255),
     price INT,
     warranty VARCHAR(255),
@@ -20,7 +20,7 @@ CREATE TABLE shop02 (
 );
 
 CREATE TABLE shop03 (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id INT PRIMARY KEY,
     model_name VARCHAR(255),
     price INT,
     warranty VARCHAR(255),
@@ -29,7 +29,7 @@ CREATE TABLE shop03 (
 );
 
 CREATE TABLE laptop (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT PRIMARY KEY,
     brand VARCHAR(255),
     model VARCHAR(255),
     processor VARCHAR(255),
