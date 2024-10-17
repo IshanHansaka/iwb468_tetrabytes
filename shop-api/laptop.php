@@ -9,7 +9,7 @@ $input = json_decode(file_get_contents('php://input'), true);
 switch ($method) {
     case 'GET':
         if (isset($_GET['id'])) {
-            $id = $_GET['id'];
+            $id = intval($_GET['id']);
             $result = $conn->query("SELECT * FROM laptop WHERE id=$id");
             if ($result->num_rows > 0) {
                 $data = $result->fetch_assoc();
@@ -28,7 +28,8 @@ switch ($method) {
         break;
 
     case 'POST':
-        if (isset($input['brand'], $input['model'], $input['processor'], $input['ram'], $input['storage'], $input['display'], $input['gpu'], $input['weight'], $input['battery'], $input['image_link'])) {
+        if (isset($input['id'], $input['brand'], $input['model'], $input['processor'], $input['ram'], $input['storage'], $input['display'], $input['gpu'], $input['weight'], $input['battery'], $input['image_link'])) {
+            $id = intval($input['id']);
             $brand = $input['brand'];
             $model = $input['model'];
             $processor = $input['processor'];
@@ -40,8 +41,14 @@ switch ($method) {
             $battery = $input['battery'];
             $image_link = $input['image_link'];
 
-            $stmt = $conn->prepare("INSERT INTO laptop (brand, model, processor, ram, storage, display, gpu, weight, battery, image_link) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssssssssss", $brand, $model, $processor, $ram, $storage, $display, $gpu, $weight, $battery, $image_link);
+            $checkId = $conn->query("SELECT * FROM laptop WHERE id=$id");
+            if ($checkId->num_rows > 0) {
+                echo json_encode(["message" => "Error: ID already exists. Please use a different ID."]);
+                exit;
+            }
+
+            $stmt = $conn->prepare("INSERT INTO laptop (id, brand, model, processor, ram, storage, display, gpu, weight, battery, image_link) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("issssssssss", $id, $brand, $model, $processor, $ram, $storage, $display, $gpu, $weight, $battery, $image_link);
             $stmt->execute();
 
             if ($stmt->affected_rows > 0) {
@@ -57,7 +64,7 @@ switch ($method) {
 
     case 'PUT':
         if (isset($_GET['id'])) {
-            $id = $_GET['id'];
+            $id = intval($_GET['id']);
             if (isset($input['brand'], $input['model'], $input['processor'], $input['ram'], $input['storage'], $input['display'], $input['gpu'], $input['weight'], $input['battery'], $input['image_link'])) {
                 $brand = $input['brand'];
                 $model = $input['model'];
@@ -90,7 +97,7 @@ switch ($method) {
 
     case 'DELETE':
         if (isset($_GET['id'])) {
-            $id = $_GET['id'];
+            $id = intval($_GET['id']);
             $result = $conn->query("DELETE FROM laptop WHERE id=$id");
             if ($conn->affected_rows > 0) {
                 echo json_encode(["message" => "Laptop deleted successfully"]);

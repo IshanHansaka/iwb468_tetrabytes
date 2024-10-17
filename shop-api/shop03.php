@@ -9,85 +9,77 @@ $input = json_decode(file_get_contents('php://input'), true);
 switch ($method) {
     case 'GET':
         if (isset($_GET['id'])) {
-            $id = $_GET['id'];
-            $stmt = $conn->prepare("SELECT * FROM shop03 WHERE id = ?");
-            $stmt->bind_param("i", $id);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $data = $result->fetch_assoc();
+            $id = intval($_GET['id']);
+            $result = $conn->query("SELECT * FROM shop03 WHERE id=$id");
             
-            if ($data) {
+            if ($result->num_rows > 0) {
+                $data = $result->fetch_assoc();
                 echo json_encode($data);
             } else {
-                echo json_encode(["message" => "Laptop not found"]);
+                echo json_encode(["message" => "No product found with ID: $id"]);
             }
         } else {
             $result = $conn->query("SELECT * FROM shop03");
-            $laptops = [];
+            $products = [];
             while ($row = $result->fetch_assoc()) {
-                $laptops[] = $row;
+                $products[] = $row;
             }
-            echo json_encode($laptops);
+            echo json_encode($products);
         }
         break;
 
     case 'POST':
-        if (isset($input['model_name'], $input['price'], $input['warranty'], $input['in_stock'])) {
-            $model_name = $input['model_name'];
-            $price = $input['price'];
-            $warranty = $input['warranty'];
-            $in_stock = $input['in_stock'];
+        $id = intval($input['id']);
+        $model_name = $conn->real_escape_string($input['model_name']);
+        $price = intval($input['price']);
+        $warranty = $conn->real_escape_string($input['warranty']);
+        $in_stock = isset($input['in_stock']) ? ($input['in_stock'] ? 1 : 0) : 0;
 
-            $stmt = $conn->prepare("INSERT INTO shop03 (model_name, price, warranty, in_stock) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("sisi", $model_name, $price, $warranty, $in_stock);
-            $stmt->execute();
-            
-            if ($stmt->affected_rows > 0) {
-                echo json_encode(["message" => "Laptop added successfully"]);
-            } else {
-                echo json_encode(["message" => "Error adding laptop"]);
-            }
-        } else {
-            echo json_encode(["message" => "Missing required fields"]);
+        $checkId = $conn->query("SELECT * FROM shop03 WHERE id=$id");
+        if ($checkId->num_rows > 0) {
+            echo json_encode(["message" => "Error: ID already exists. Please use a different ID."]);
+            exit;
         }
+
+        $stmt = $conn->prepare("INSERT INTO shop03 (id, model_name, price, warranty, in_stock) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("isisi", $id, $model_name, $price, $warranty, $in_stock);
+        $stmt->execute();
+
+        echo json_encode(["message" => "Product added successfully"]);
         break;
 
     case 'PUT':
-        if (isset($_GET['id']) && isset($input['model_name'], $input['price'], $input['warranty'], $input['in_stock'])) {
-            $id = $_GET['id'];
-            $model_name = $input['model_name'];
-            $price = $input['price'];
-            $warranty = $input['warranty'];
-            $in_stock = $input['in_stock'];
-
-            $stmt = $conn->prepare("UPDATE shop03 SET model_name = ?, price = ?, warranty = ?, in_stock = ? WHERE id = ?");
-            $stmt->bind_param("sisii", $model_name, $price, $warranty, $in_stock, $id);
-            $stmt->execute();
-
-            if ($stmt->affected_rows > 0) {
-                echo json_encode(["message" => "Laptop updated successfully"]);
-            } else {
-                echo json_encode(["message" => "Laptop not found or no change in data"]);
-            }
-        } else {
-            echo json_encode(["message" => "Missing required fields or ID"]);
+        if (!isset($input['id'])) {
+            echo json_encode(["message" => "Error: 'id' is required to update a product."]);
+            exit;
         }
+
+        $id = intval($input['id']);
+        $model_name = $conn->real_escape_string($input['model_name']);
+        $price = intval($input['price']);
+        $warranty = $conn->real_escape_string($input['warranty']);
+        $in_stock = isset($input['in_stock']) ? ($input['in_stock'] ? 1 : 0) : 0;
+
+        $stmt = $conn->prepare("UPDATE shop03 SET model_name=?, price=?, warranty=?, in_stock=? WHERE id=?");
+        $stmt->bind_param("sisii", $model_name, $price, $warranty, $in_stock, $id);
+        $stmt->execute();
+
+        echo json_encode(["message" => "Product updated successfully"]);
         break;
 
     case 'DELETE':
-        if (isset($_GET['id'])) {
-            $id = $_GET['id'];
-            $stmt = $conn->prepare("DELETE FROM shop03 WHERE id = ?");
-            $stmt->bind_param("i", $id);
-            $stmt->execute();
-            
-            if ($stmt->affected_rows > 0) {
-                echo json_encode(["message" => "Laptop deleted successfully"]);
-            } else {
-                echo json_encode(["message" => "Laptop not found"]);
-            }
+        if (!isset($_GET['id'])) {
+            echo json_encode(["message" => "Error: 'id' is required to delete a product."]);
+            exit;
+        }
+
+        $id = intval($_GET['id']);
+        $conn->query("DELETE FROM shop03 WHERE id=$id");
+
+        if ($conn->affected_rows > 0) {
+            echo json_encode(["message" => "Product deleted successfully"]);
         } else {
-            echo json_encode(["message" => "Laptop ID not provided"]);
+            echo json_encode(["message" => "No product found with ID: $id"]);
         }
         break;
 
