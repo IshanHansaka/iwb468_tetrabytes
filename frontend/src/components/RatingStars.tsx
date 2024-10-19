@@ -1,4 +1,5 @@
 import React from 'react';
+import { Rating } from '@mui/material';
 
 interface RatingStarsProps {
   rating: number;
@@ -7,7 +8,7 @@ interface RatingStarsProps {
 const RatingStars: React.FC<RatingStarsProps> = ({ rating }) => {
   return (
     <div className="rating-stars">
-      {'⭐'.repeat(rating)}{'⭐'.repeat(5 - rating)}
+      <Rating value={rating} readOnly precision={0.5} />
       <span>({rating})</span>
     </div>
   );

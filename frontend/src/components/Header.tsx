@@ -6,9 +6,11 @@ const Header: React.FC = () => {
       <nav>
       <div className="topnav">
   <a className="active" href="#home">Home</a>
-  <a href="#news">News</a>
-  <a href="#contact">Contact</a>
-  <a href="#about">About</a>
+  <a href="#news">Shop</a>
+  <a href="#contact">Cart</a>
+  <a href="#login">Login</a>
+  <a href="#login">Register</a>
+  <input type="text" placeholder="Search.."></input>
 </div>
       </nav>
     </header>

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, CardMedia, CardContent, Typography, Button, Stack,Box } from '@mui/material';
+import { Card, CardMedia, CardContent, Typography, Button, Stack, Box, IconButton } from '@mui/material';
+import { Visibility } from '@mui/icons-material';
 import RatingStars from './RatingStars';
 
 interface Product {
@@ -12,9 +13,10 @@ interface Product {
 
 interface ProductCardProps {
   product: Product;
+  onView: (product: Product) => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, onView }) => {
   return (
     <Card className="product-card shadow-lg">
       <CardMedia
@@ -24,24 +26,41 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         alt={product.name}
       />
       <CardContent>
-        <Typography variant="h6" component="div">
-          {product.name} - ${product.price}
-        </Typography>
-        <Typography variant="body2" color="textSecondary">
-          This is the most powerful product...
-        </Typography>
-
+        <Box mb={3}>
+          <Typography variant="h6">{product.name}</Typography>
+          <Typography variant="body2" color="textSecondary">
+            ${product.price}
+          </Typography>
+        </Box>
+        <Box mb={2}>
+          <Typography variant="body2" color="textSecondary">
+            This is the most powerful product...
+          </Typography>
+        </Box>
         <Box mb={3}>
           <RatingStars rating={product.rating} />
         </Box>
-
-        <Stack direction="row" spacing={0} className="mt-4">
-          <Button variant="contained" sx={{ backgroundColor: 'black', color: 'white', '&:hover': { backgroundColor: '#333' },width: '140px', // Adjust the width
-              height: '50px',  }}>
-            View Product
-          </Button>
-          <Button variant="outlined" sx={{ borderColor: 'black', color: 'black', '&:hover': { backgroundColor: 'black', color: 'white' },width: '140px', // Adjust the width
-              height: '50px',  }}
+        <Stack direction="row" spacing={2} className="mt-4">
+          <IconButton
+            sx={{
+              backgroundColor: 'grey',
+              '&:hover': { backgroundColor: '#333' },
+              width: '40px',
+              height: '40px',
+            }}
+            onClick={() => onView(product)}
+          >
+            <Visibility sx={{ color: 'white' }} />
+          </IconButton>
+          <Button
+            variant="outlined"
+            sx={{
+              borderColor: 'black',
+              color: 'black',
+              '&:hover': { backgroundColor: 'black', color: 'white' },
+              width: '140px',
+              height: '50px',
+            }}
           >
             Add to Cart
           </Button>
