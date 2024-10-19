@@ -1,0 +1,88 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .shop-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .content {
+    display: flex;
+    flex: 1;
+  }
+  
+  .sidebar {
+    position: fixed;
+    top: 80px; /* Adjust based on header height */
+    left: 0;
+    width: 250px;
+    height: calc(100vh - 80px); /* Adjust based on header height */
+    padding: 20px;
+    background-color: #f8f8f8;
+    overflow-y: auto;
+  }
+  
+  .products-container {
+    margin-left: 270px; /* Adjust based on sidebar width */
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  .product-card {
+    width: 240px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+    background: white;
+  }
+  
+  .product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  /* Adjust the header if necessary */
+  .topnav {
+    position: fixed; /* Fix the navbar at the top */
+  top: 0; /* Align it to the top */
+  left: 0; /* Align it to the left */
+  width: 100%; /* Make it full width */
+  background-color: #333;
+  overflow: hidden;
+  z-index: 1000; /* Ensure it's above other elements */
+  }
+  
+  .topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  .topnav a.active {
+    background-color: black;
+    color: white;
+  }
+  

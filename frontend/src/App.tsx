@@ -1,11 +1,13 @@
+import React from 'react';
+import Shop from './pages/shop';
 import './App.css';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <>
-      <p className="text-2xl popins underline">Hello world!</p>
-    </>
+    <div className="App">
+      <Shop />
+    </div>
   );
-}
+};
 
 export default App;
