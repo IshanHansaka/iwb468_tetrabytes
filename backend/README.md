@@ -1,6 +1,9 @@
 ### SQL Queries
 
 ```sql
+CREATE DATABASE laptop_db;
+USE laptop_db;
+
 CREATE TABLE laptop (
     id INT AUTO_INCREMENT PRIMARY KEY,
     brand VARCHAR(255),
@@ -28,7 +31,7 @@ CREATE TABLE product (
     in_stock BOOLEAN,
     last_updated VARCHAR(255),
     PRIMARY KEY (laptop_id, shop_id),
-    FOREIGN KEY (laptop_id) REFERENCES Laptops(id),
-    FOREIGN KEY (shop_id) REFERENCES Shops(id)
+    FOREIGN KEY (laptop_id) REFERENCES laptop(id),
+    FOREIGN KEY (shop_id) REFERENCES shop(id)
 );
 ```
