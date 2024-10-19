@@ -1,4 +1,5 @@
 import React from 'react';
+import { Card, CardMedia, CardContent, Typography, Button, Stack,Box } from '@mui/material';
 import RatingStars from './RatingStars';
 
 interface Product {
@@ -15,16 +16,38 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-    <div className="product-card">
-      <img src={product.image} alt={product.name} />
-      <h3>{product.name} - ${product.price}</h3>
-      <p>This is the most powerful product...</p>
-      <RatingStars rating={product.rating} />
-      <div className="actions">
-        <button>View Product</button>
-        <button>Add to Cart</button>
-      </div>
-    </div>
+    <Card className="product-card shadow-lg">
+      <CardMedia
+        component="img"
+        height="180"
+        image={product.image}
+        alt={product.name}
+      />
+      <CardContent>
+        <Typography variant="h6" component="div">
+          {product.name} - ${product.price}
+        </Typography>
+        <Typography variant="body2" color="textSecondary">
+          This is the most powerful product...
+        </Typography>
+
+        <Box mb={3}>
+          <RatingStars rating={product.rating} />
+        </Box>
+
+        <Stack direction="row" spacing={0} className="mt-4">
+          <Button variant="contained" sx={{ backgroundColor: 'black', color: 'white', '&:hover': { backgroundColor: '#333' },width: '140px', // Adjust the width
+              height: '50px',  }}>
+            View Product
+          </Button>
+          <Button variant="outlined" sx={{ borderColor: 'black', color: 'black', '&:hover': { backgroundColor: 'black', color: 'white' },width: '140px', // Adjust the width
+              height: '50px',  }}
+          >
+            Add to Cart
+          </Button>
+        </Stack>
+      </CardContent>
+    </Card>
   );
 };
 

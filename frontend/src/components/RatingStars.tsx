@@ -7,7 +7,7 @@ interface RatingStarsProps {
 const RatingStars: React.FC<RatingStarsProps> = ({ rating }) => {
   return (
     <div className="rating-stars">
-      {'★'.repeat(rating)}{'☆'.repeat(5 - rating)}
+      {'⭐'.repeat(rating)}{'⭐'.repeat(5 - rating)}
       <span>({rating})</span>
     </div>
   );
