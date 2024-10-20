@@ -33,6 +33,8 @@ public type CombinedProduct record {|
     string processor;
     string ram;
     string storage;
+    string short_ram;
+    string short_processor;
     string display;
     string gpu;
     string weight;
