@@ -33,5 +33,40 @@
     "price": 215000,
     "warranty": "2 Year",
     "in_stock": true
+  },
+  "product06": {
+    "id": 6,
+    "model_name": "APPLE MACBOOK AIR M3",
+    "price": 349000,
+    "warranty": "1 Year",
+    "in_stock": true
+  },
+  "product07": {
+    "id": 7,
+    "model_name": "ACER ASPIRE A15-51P-39HQ",
+    "price": 156000,
+    "warranty": "2 Year",
+    "in_stock": false
+  },
+  "product08": {
+    "id": 8,
+    "model_name": "Dell Inspiron 15 3525",
+    "price": 179000,
+    "warranty": "3 Year",
+    "in_stock": true
+  },
+  "product09": {
+    "id": 9,
+    "model_name": "Lenovo Lenovo LOQ 15IRX9",
+    "price": 499000,
+    "warranty": "2 Year",
+    "in_stock": true
+  },
+  "product10": {
+    "id": 10,
+    "model_name": "ASUS TUF GAMING A15 FA506NFR",
+    "price": 289000,
+    "warranty": "1 Year",
+    "in_stock": false
   }
 }
