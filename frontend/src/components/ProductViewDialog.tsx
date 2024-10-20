@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dialog, DialogContent, DialogTitle, Typography, Box, CardMedia, Button, Table, TableBody, TableCell, TableRow } from '@mui/material';
+import { Dialog, DialogContent, DialogTitle, Typography, Box, CardMedia, Button, Table, TableBody, TableCell, TableRow, Grid } from '@mui/material';
 
 interface Product {
   id: number;
@@ -7,13 +7,16 @@ interface Product {
   price: number;
   rating: number;
   image: string;
-  category: string;
-  subCategory: string;
-  shipping: string;
-  color: string;
   brand: string;
-  available: number;
-  sold: number;
+  model: string;
+  processor: string;
+  ram: string;
+  storage: string;
+  display: string;
+  cpu: string;
+  weight: string;
+  battery: string;
+  processordescription:string;
 }
 
 interface ProductViewDialogProps {
@@ -27,56 +30,75 @@ const ProductViewDialog: React.FC<ProductViewDialogProps> = ({ product, open, on
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
       <DialogTitle>{product.name}</DialogTitle>
       <DialogContent>
-        <Box display="flex" flexDirection="column" alignItems="center">
-          <CardMedia
-            component="img"
-            height="300"
-            image={product.image}
-            alt={product.name}
-            sx={{ mb: 2 }}
-          />
-          <Typography variant="h6" gutterBottom>
-            ${product.price}
-          </Typography>
+        <Grid container spacing={2}>
+          {/* Image Section */}
+          <Grid item xs={12} md={5}>
+            <CardMedia
+              component="img"
+              height="300"
+              image={product.image}
+              alt={product.name}
+              sx={{ borderRadius: 2 }}
+            />
+          </Grid>
 
-          <Table>
-            <TableBody>
-              <TableRow>
-                <TableCell>Price</TableCell>
-                <TableCell>${product.price}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Category</TableCell>
-                <TableCell>{product.category}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Sub Categories</TableCell>
-                <TableCell>{product.subCategory}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Shipping</TableCell>
-                <TableCell>{product.shipping}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Color</TableCell>
-                <TableCell>{product.color}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Brand</TableCell>
-                <TableCell>{product.brand}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Available</TableCell>
-                <TableCell>{product.available}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Sold</TableCell>
-                <TableCell>{product.sold}</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
+          {/* Details Section */}
+          <Grid item xs={14} md={7}>
+            
 
-          <Button onClick={onClose} sx={{ mt: 2 }}>
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <TableCell>Price</TableCell>
+                  <TableCell>${product.price}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Brand</TableCell>
+                  <TableCell>{product.brand}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Model</TableCell>
+                  <TableCell>{product.model}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Processor</TableCell>
+                  <TableCell>{product.processor}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>RAM</TableCell>
+                  <TableCell>{product.ram}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Storage</TableCell>
+                  <TableCell>{product.storage}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Display</TableCell>
+                  <TableCell>{product.display}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>CPU</TableCell>
+                  <TableCell>{product.cpu}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Weight</TableCell>
+                  <TableCell>{product.weight}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Battery</TableCell>
+                  <TableCell>{product.battery}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Processor-d</TableCell>
+                  <TableCell>{product.processordescription}</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </Grid>
+        </Grid>
+
+        <Box display="flex" justifyContent="center" mt={2}>
+          <Button onClick={onClose}>
             Close
           </Button>
         </Box>

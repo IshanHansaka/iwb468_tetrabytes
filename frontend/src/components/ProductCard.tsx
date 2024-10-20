@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardMedia, CardContent, Typography, Button, Stack, Box, IconButton } from '@mui/material';
+import { Card, CardMedia, CardContent, Typography, Button, Stack, Box } from '@mui/material';
 import { Visibility } from '@mui/icons-material';
 import RatingStars from './RatingStars';
 
@@ -27,7 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onView }) => {
       />
       <CardContent>
         <Box mb={3}>
-          <Typography variant="h6">{product.name}</Typography>
+          <Typography>{product.name}</Typography>
           <Typography variant="body2" color="textSecondary">
             ${product.price}
           </Typography>
@@ -41,28 +41,21 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onView }) => {
           <RatingStars rating={product.rating} />
         </Box>
         <Stack direction="row" spacing={2} className="mt-4">
-          <IconButton
-            sx={{
-              backgroundColor: 'grey',
-              '&:hover': { backgroundColor: '#333' },
-              width: '40px',
-              height: '40px',
-            }}
-            onClick={() => onView(product)}
-          >
-            <Visibility sx={{ color: 'white' }} />
-          </IconButton>
           <Button
             variant="outlined"
             sx={{
               borderColor: 'black',
               color: 'black',
               '&:hover': { backgroundColor: 'black', color: 'white' },
-              width: '140px',
+              display: 'flex',
+              alignItems: 'center',
+              width: '220px',
               height: '50px',
             }}
+            onClick={() => onView(product)}
           >
-            Add to Cart
+            <Visibility sx={{ marginRight: 1 }} />
+            View Product
           </Button>
         </Stack>
       </CardContent>

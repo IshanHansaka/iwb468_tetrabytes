@@ -7,7 +7,6 @@ import {
   Typography,
   RadioGroup,
   Radio,
-  Chip,
   Box,
   Stack,
 } from '@mui/material';
@@ -22,8 +21,10 @@ interface SidebarProps {
   setSelectedRating: React.Dispatch<React.SetStateAction<number | null>>;
   selectedBrands: string[];
   setSelectedBrands: React.Dispatch<React.SetStateAction<string[]>>;
-  selectedColors: string[];
-  setSelectedColors: React.Dispatch<React.SetStateAction<string[]>>;
+  selectedRAM: string[];
+  setSelectedRAM: React.Dispatch<React.SetStateAction<string[]>>;
+  selectedProcessors: string[];
+  setSelectedProcessors: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ 
@@ -35,8 +36,10 @@ const Sidebar: React.FC<SidebarProps> = ({
   setSelectedRating,
   selectedBrands,
   setSelectedBrands,
-  selectedColors,
-  setSelectedColors
+  selectedRAM,
+  setSelectedRAM,
+  selectedProcessors,
+  setSelectedProcessors
 }) => {
   const handlePriceChange = (event: Event, newValue: number | number[]) => {
     if (Array.isArray(newValue)) {
@@ -68,12 +71,22 @@ const Sidebar: React.FC<SidebarProps> = ({
     });
   };
 
-  const handleColorChange = (color: string) => {
-    setSelectedColors((prev) => {
-      if (prev.includes(color)) {
-        return prev.filter((c) => c !== color);
+  const handleRAMChange = (ram: string) => {
+    setSelectedRAM((prev) => {
+      if (prev.includes(ram)) {
+        return prev.filter((r) => r !== ram);
       } else {
-        return [...prev, color];
+        return [...prev, ram];
+      }
+    });
+  };
+
+  const handleProcessorChange = (processor: string) => {
+    setSelectedProcessors((prev) => {
+      if (prev.includes(processor)) {
+        return prev.filter((p) => p !== processor);
+      } else {
+        return [...prev, processor];
       }
     });
   };
@@ -118,24 +131,6 @@ const Sidebar: React.FC<SidebarProps> = ({
           ))}
         </FormGroup>
       </div>
-      {/* Brands Filter */}
-      <div className="filter-section">
-        <Typography variant="subtitle1">Brands</Typography>
-        <FormGroup>
-          {['Apple', 'Samsung', 'Microsoft', 'Lenovo', 'ASUS', 'HP'].map((brand) => (
-            <FormControlLabel
-              control={
-                <Checkbox 
-                  checked={selectedBrands.includes(brand)} 
-                  onChange={() => handleBrandChange(brand)} 
-                />
-              }
-              label={brand}
-              key={brand}
-            />
-          ))}
-        </FormGroup>
-      </div>
 
       {/* Rating Filter */}
       <div className="filter-section">
@@ -163,34 +158,64 @@ const Sidebar: React.FC<SidebarProps> = ({
         </Box>
       </div>
 
-      {/* Sub Categories Filter */}
+      {/* Brands Filter */}
+      {/* Brands Filter */}
       <div className="filter-section">
-        <Typography variant="subtitle1">Sub Categories</Typography>
-        <Stack direction="row" spacing={1} flexWrap="wrap">
-          {['Macbook Pro', 'Macbook Air', 'Pavilion', 'Thinkpad', 'Legion'].map(
-            (subCategory) => (
-              <Chip key={subCategory} label={subCategory} />
-            )
-          )}
-        </Stack>
-      </div>/*
+        <Typography variant="subtitle1">Brands</Typography>
+        <Box display="flex" flexWrap="wrap">
+          {['Mackbook', 'MSI', 'Lenovo', 'ASUS','Apple','HP'].map((brand) => (
+            <Box key={brand} width="50%"> {/* Adjust the width as needed */}
+              <FormControlLabel
+                control={
+                  <Checkbox 
+                    checked={selectedBrands.includes(brand)} 
+                    onChange={() => handleBrandChange(brand)} 
+                  />
+                }
+                label={brand}
+                style={{ marginRight: '16px' }} // Optional: add space between checkboxes
+              />
+            </Box>
+          ))}
+        </Box>
+      </div>
 
-      
-
-      {/* Colors Filter */}
+      {/* RAMs Filter */}
       <div className="filter-section">
-        <Typography variant="subtitle1">Colors</Typography>
+        <Typography variant="subtitle1">RAM</Typography>
+        <Box display="flex" flexWrap="wrap">
+          {['4GB', '8GB', '16GB', '32GB'].map((ram) => (
+            <Box key={ram} width="50%"> {/* Adjust the width as needed */}
+              <FormControlLabel
+                control={
+                  <Checkbox 
+                    checked={selectedRAM.includes(ram)} 
+                    onChange={() => handleRAMChange(ram)} 
+                  />
+                }
+                label={ram}
+                style={{ marginRight: '16px' }} // Optional: add space between checkboxes
+              />
+            </Box>
+          ))}
+        </Box>
+      </div>
+
+
+      {/* Processor Filter */}
+      <div className="filter-section">
+        <Typography variant="subtitle1">Processor</Typography>
         <FormGroup>
-          {['Black', 'White', 'Silver', 'Blue', 'Brown'].map((color) => (
+          {['Intel® Core™ i9', 'Intel® Core™ i7', 'Intel® Core™ i5', 'Intel® Core™ i3'].map((processor) => (
             <FormControlLabel
               control={
                 <Checkbox 
-                  checked={selectedColors.includes(color)} 
-                  onChange={() => handleColorChange(color)} 
+                  checked={selectedProcessors.includes(processor)} 
+                  onChange={() => handleProcessorChange(processor)} 
                 />
               }
-              label={color}
-              key={color}
+              label={processor}
+              key={processor}
             />
           ))}
         </FormGroup>
