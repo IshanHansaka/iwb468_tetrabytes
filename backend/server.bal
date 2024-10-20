@@ -7,6 +7,11 @@ import ballerina/http;
 }
 
 service / on new http:Listener(9090) {
+    
+    isolated resource function get all() returns CombinedProduct[]|error? {
+        return getCombinedAllProducts();
+    }
+
     isolated resource function get product/[int id]() returns Product|error? {
         return getProduct(id);
     }
@@ -31,7 +36,4 @@ service / on new http:Listener(9090) {
         return getAllShops();
     }
 
-    isolated resource function get combine() returns CombinedProduct[]|error? {
-        return getCombinedAllProducts();
-    }
 }
