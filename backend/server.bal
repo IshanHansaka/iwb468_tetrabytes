@@ -30,4 +30,8 @@ service / on new http:Listener(9090) {
     isolated resource function get shop() returns Shop[]|error? {
         return getAllShops();
     }
+
+    isolated resource function get combine() returns CombinedProduct[]|error? {
+        return getCombinedAllProducts();
+    }
 }

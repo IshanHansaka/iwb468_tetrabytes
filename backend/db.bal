@@ -6,10 +6,9 @@ configurable string HOST = ?;
 configurable int PORT = ?;
 configurable string DATABASE = ?;
 
-final mysql:Client dbClient = check new(
-    host=HOST, user=USER, password=PASSWORD, port=PORT, database="laptop_db"
+final mysql:Client dbClient = check new (
+    host = HOST, user = USER, password = PASSWORD, port = PORT, database = "laptop_db"
 );
-
 
 isolated function getLaptop(int id) returns Laptop|error {
     Laptop laptop = check dbClient->queryRow(
@@ -39,7 +38,7 @@ isolated function getShop(int id) returns Shop|error {
 }
 
 isolated function getAllShops() returns Shop[]|error {
-   Shop[] shops = [];
+    Shop[] shops = [];
     stream<Shop, error?> resultStream = dbClient->query(
         `SELECT * FROM shop`
     );
@@ -50,6 +49,7 @@ isolated function getAllShops() returns Shop[]|error {
     check resultStream.close();
     return shops;
 }
+
 isolated function getProduct(int id) returns Product|error {
     Product product = check dbClient->queryRow(
         `SELECT * FROM product WHERE laptop_id = ${id}`
@@ -58,7 +58,7 @@ isolated function getProduct(int id) returns Product|error {
 }
 
 isolated function getAllProducts() returns Product[]|error {
-   Product[] products = [];
+    Product[] products = [];
     stream<Product, error?> resultStream = dbClient->query(
         `SELECT * FROM product`
     );
@@ -68,4 +68,18 @@ isolated function getAllProducts() returns Product[]|error {
         };
     check resultStream.close();
     return products;
+}
+
+isolated function getCombinedAllProducts() returns CombinedProduct[]|error {
+    CombinedProduct[] combinedProducts = [];
+    stream<CombinedProduct, error?> resultStream = dbClient->query(
+        `SELECT l.id AS laptop_id, l.brand, l.model, l.processor, l.ram, l.storage, l.display, l.gpu, l.weight, l.battery, l.image_link, JSON_ARRAYAGG(JSON_OBJECT('shop_id', s.id, 'shop_name', s.name, 'price', p.price, 'warranty', p.warranty, 'in_stock', p.in_stock, 'last_updated', p.last_updated)) AS shops FROM laptop l JOIN product p ON l.id = p.laptop_id JOIN shop s ON p.shop_id = s.id GROUP BY l.id, l.brand, l.model, l.processor, l.ram, l.storage, l.display, l.gpu, l.weight, l.battery, l.image_link`
+    );
+
+    check from CombinedProduct combinedProduct in resultStream
+        do {
+            combinedProducts.push(combinedProduct);
+        };
+    check resultStream.close();
+    return combinedProducts;
 }

@@ -25,3 +25,18 @@ public type Product record {|
     boolean in_stock;
     string last_updated;
 |};
+
+public type CombinedProduct record {|
+    readonly int laptop_id;
+    string brand;
+    string model;
+    string processor;
+    string ram;
+    string storage;
+    string display;
+    string gpu;
+    string weight;
+    string battery;
+    string image_link;
+    json shops;
+|};
