@@ -18,10 +18,10 @@ public type Shop record {|
 |};
 
 public type Product record {|
-    int laptopId;
-    int shopId;
+    int laptop_id;
+    int shop_id;
     int price;
     string warranty;
-    boolean inStock;
-    string lastUpdated;
-|}
+    boolean in_stock;
+    string last_updated;
+|};
