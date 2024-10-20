@@ -1,5 +1,13 @@
 import React from 'react';
-import { Card, CardMedia, CardContent, Typography, Button, Stack, Box } from '@mui/material';
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  Button,
+  Stack,
+  Box,
+} from '@mui/material';
 import { Visibility } from '@mui/icons-material';
 import RatingStars from './RatingStars';
 
@@ -10,6 +18,8 @@ interface ShopProduct {
   processor: string;
   ram: string;
   storage: string;
+  short_ram: string;
+  short_processor: string;
   display: string;
   gpu: string;
   weight: string;
@@ -30,9 +40,27 @@ interface ProductCardProps {
   onView: (product: ShopProduct) => void;
 }
 
+const getRatingByPrice = (price: number): number => {
+  if (price > 1000000) {
+    return 4.8;
+  } else if (price > 500000) {
+    return 4.7;
+  } else if (price > 400000) {
+    return 4.6;
+  } else if (price > 300000) {
+    return 4.5;
+  } else if (price > 200000) {
+    return 4.4;
+  } else if (price > 100000) {
+    return 4.2;
+  } else {
+    return 3.5;
+  }
+};
+
 const ProductCard: React.FC<ProductCardProps> = ({ product, onView }) => {
-  // Assume we're using the first shop's details for display
   const shop = product.shops[0];
+  const rating = getRatingByPrice(shop.price);
 
   return (
     <Card className="product-card shadow-lg">
@@ -43,20 +71,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onView }) => {
         alt={product.model}
       />
       <CardContent>
-        <Box mb={3}>
-          <Typography variant="h6">{product.model}</Typography>
+        <Box mb={1}>
+          <Typography variant="h6">
+            {product.brand} {product.model}
+          </Typography>
           <Typography variant="body2" color="textSecondary">
-            ${shop.price.toLocaleString()} {/* Format the price */}
+            {shop.price.toLocaleString()} LKR
           </Typography>
         </Box>
+
         <Box mb={2}>
-          <Typography variant="body2" color="textSecondary">
-            {`Brand: ${product.brand}`} {/* Display the brand */}
-          </Typography>
+          <RatingStars rating={rating} /> {/* Use the stable rating */}
         </Box>
-        <Box mb={3}>
-          <RatingStars rating={shop.price > 400000 ? 4 : 5} /> {/* Placeholder for rating logic */}
-        </Box>
+
         <Stack direction="row" spacing={2} className="mt-4">
           <Button
             variant="outlined"

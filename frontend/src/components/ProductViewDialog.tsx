@@ -1,5 +1,17 @@
 import React from 'react';
-import { Dialog, DialogContent, DialogTitle, Box, CardMedia, Button, Table, TableBody, TableCell, TableRow, Grid } from '@mui/material';
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Box,
+  CardMedia,
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  Grid,
+} from '@mui/material';
 
 interface ShopProduct {
   laptop_id: number;
@@ -8,11 +20,13 @@ interface ShopProduct {
   processor: string;
   ram: string;
   storage: string;
+  short_ram: string;
+  short_processor: string;
   display: string;
-  gpu: string; // Assuming you want to display GPU information as well
+  gpu: string;
   weight: string;
   battery: string;
-  image_link: string; // Updated to match new data structure
+  image_link: string;
   processordescription: string;
   shops: {
     shop_id: number;
@@ -30,8 +44,11 @@ interface ProductViewDialogProps {
   onClose: () => void;
 }
 
-const ProductViewDialog: React.FC<ProductViewDialogProps> = ({ product, open, onClose }) => {
-  // Assuming we're using the first shop's details for display
+const ProductViewDialog: React.FC<ProductViewDialogProps> = ({
+  product,
+  open,
+  onClose,
+}) => {
   const shop = product.shops[0];
 
   return (
@@ -39,24 +56,22 @@ const ProductViewDialog: React.FC<ProductViewDialogProps> = ({ product, open, on
       <DialogTitle>{product.model}</DialogTitle>
       <DialogContent>
         <Grid container spacing={2}>
-          {/* Image Section */}
           <Grid item xs={12} md={5}>
             <CardMedia
               component="img"
               height="300"
-              image={product.image_link} // Updated to match new data structure
+              image={product.image_link}
               alt={product.model}
               sx={{ borderRadius: 2 }}
             />
           </Grid>
 
-          {/* Details Section */}
           <Grid item xs={12} md={7}>
             <Table>
               <TableBody>
                 <TableRow>
                   <TableCell>Price</TableCell>
-                  <TableCell>${shop.price.toLocaleString()}</TableCell> {/* Formatting price */}
+                  <TableCell>{shop.price.toLocaleString()} LKR</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>Brand</TableCell>
@@ -83,7 +98,7 @@ const ProductViewDialog: React.FC<ProductViewDialogProps> = ({ product, open, on
                   <TableCell>{product.display}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell>GPU</TableCell> {/* Added GPU row */}
+                  <TableCell>GPU</TableCell>
                   <TableCell>{product.gpu}</TableCell>
                 </TableRow>
                 <TableRow>
@@ -100,9 +115,7 @@ const ProductViewDialog: React.FC<ProductViewDialogProps> = ({ product, open, on
         </Grid>
 
         <Box display="flex" justifyContent="center" mt={2}>
-          <Button onClick={onClose}>
-            Close
-          </Button>
+          <Button onClick={onClose}>Close</Button>
         </Box>
       </DialogContent>
     </Dialog>
