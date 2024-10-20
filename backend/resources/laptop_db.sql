@@ -92,10 +92,11 @@ VALUES (9, 'HP', 'Victus 15 FB2082WM', 'AMD Ryzen™ 5 8645HS (6 Core, 12 Thread
         'https://www.nanotek.lk/uploads/product/1426-20240809183526-HP%20Victus%2015%202023.png');
 
 INSERT INTO laptop (id, brand, model, processor, ram, storage, display, gpu, weight, battery, image_link)
-VALUES (11, 'HP', 'Victus 15 FB2082WM', 'AMD Ryzen™ 5 8645HS (6 Core, 12 Threads-16M Cache, up to 5 GHz)', 
-        '8GB DDR5 4800MHz', '512GB GEN4 NVME M.2 SSD', '15.6" FHD IPS LED Display 144HZ Thin Bezel (300 nits)', 
-        'NVIDIA® GeForce RTX 4050 6GB GDDR6 (TDP 75W)', '2.29KG', '70 WHr', 'https://www.nanotek.lk/uploads/product/1426-20240809183526-HP%20Victus%2015%202023.png');
-
+VALUES (11, 'Lenovo', 'LOQ 15IAX9', 'Intel® Core™ i5-12450HX (12M Cache, up to 4.40 GHz)', 
+        '16GB DDR5 4800Mhz (8GB X 2)',  '512GB SSD NVMe GEN4', 
+        '15.6" FHD (1920x1080) IPS 300nits Anti-glare, 100% sRGB, 144Hz, G-SYNC®', 
+        'NVIDIA® GeForce RTX™ 2050 4GB GDDR6 TGP 65W', '2.38 kg', '60 WHr', 
+        'https://www.nanotek.lk/uploads/product/1553-20240829145350-7ywrzbm2otj81j2xahv06tv544focl590266%20(1).png');
 
 -- Inserting shop01
 INSERT INTO shop (name) VALUES ('shop01');
