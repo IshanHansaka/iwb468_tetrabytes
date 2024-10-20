@@ -3,14 +3,13 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
-  Box,
   CardMedia,
-  Button,
   Table,
   TableBody,
   TableCell,
   TableRow,
   Grid,
+  Typography,
 } from '@mui/material';
 
 interface ShopProduct {
@@ -51,9 +50,13 @@ const ProductViewDialog: React.FC<ProductViewDialogProps> = ({
 }) => {
   const shop = product.shops[0];
 
+  const prices = product.shops.map((s) => s.price);
+  const minPrice = Math.min(...prices);
+  const maxPrice = Math.max(...prices);
+
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
-      <DialogTitle>{product.model}</DialogTitle>
+      <DialogTitle>{product.brand} {product.model}</DialogTitle>
       <DialogContent>
         <Grid container spacing={2}>
           <Grid item xs={12} md={5}>
@@ -64,15 +67,39 @@ const ProductViewDialog: React.FC<ProductViewDialogProps> = ({
               alt={product.model}
               sx={{ borderRadius: 2 }}
             />
+            <Table>
+              <TableBody>
+                {product.shops.length > 1 && (
+                  <>
+                    <TableRow>
+                      <TableCell>
+                        Price Range
+                        <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+                          {minPrice.toLocaleString()} LKR to{' '}
+                          {maxPrice.toLocaleString()} LKR
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell colSpan={2}>
+                        <Typography
+                          variant="body2"
+                          align="left"
+                          sx={{ color: 'gray' }}
+                        >
+                          Available at {product.shops.length} stores
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+                  </>
+                )}
+              </TableBody>
+            </Table>
           </Grid>
 
           <Grid item xs={12} md={7}>
             <Table>
               <TableBody>
-                <TableRow>
-                  <TableCell>Price</TableCell>
-                  <TableCell>{shop.price.toLocaleString()} LKR</TableCell>
-                </TableRow>
                 <TableRow>
                   <TableCell>Brand</TableCell>
                   <TableCell>{product.brand}</TableCell>
@@ -113,10 +140,6 @@ const ProductViewDialog: React.FC<ProductViewDialogProps> = ({
             </Table>
           </Grid>
         </Grid>
-
-        <Box display="flex" justifyContent="center" mt={2}>
-          <Button onClick={onClose}>Close</Button>
-        </Box>
       </DialogContent>
     </Dialog>
   );
