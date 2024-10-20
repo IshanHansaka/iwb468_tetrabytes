@@ -8,6 +8,8 @@ CREATE TABLE laptop (
     model VARCHAR(255),
     processor VARCHAR(255),
     ram VARCHAR(255),
+    short_ram VARCHAR(50),
+    short_processor VARCHAR(50);
     storage VARCHAR(255),
     display VARCHAR(255),
     gpu VARCHAR(255),
@@ -61,13 +63,13 @@ VALUES (4, 'ASUS', 'ROG Strix SCAR 16 G634JZR', 'Intel Core i9 14900HX (36MB Cac
 
 -- Inserting laptop05
 INSERT INTO laptop (id, brand, model, processor, ram, storage, display, gpu, weight, battery, image_link)
-VALUES (5, 'MSI', 'Modern 15 B13M', 'Intel® Core™ i5-1335U (12MB Cache, up to 4.6 GHz, 10 cores, 12 Threads)', 
+VALUES (5, 'MSI', 'Modern 15 B13M i7H 13th GEN', 'Intel® Core™ i5-1335U (12MB Cache, up to 4.6 GHz, 10 cores, 12 Threads)', 
         '16GB DDR4 3200MHZ (Onboard)', '512GB NVME GEN4 M.2 SSD', '15.6” 1080P Display IPS LEVEL', 'Intel Iris Xe Graphics', 
         '1.7kg', '39.3WHrs', 'https://www.nanotek.lk/uploads/product/2074-20240808155453-MODERN%20B12M.png');
 
 -- Inserting laptop06
 INSERT INTO laptop (id, brand, model, processor, ram, storage, display, gpu, weight, battery, image_link)
-VALUES (6, 'Apple', 'MacBook Air M3 8GB 256GB 13" (2024)', 'Apple M3 8-core CPU 8-core GPU', 
+VALUES (6, 'Apple', 'MacBook Air M3 8GB 256GB 13', 'Apple M3 8-core CPU 8-core GPU', 
         '8GB unified memory', '256GB SSD', '13.6-inch Liquid Retina display with True Tone²', 
         'Apple 8-core GPU', '1.24kg', '52.6 WHrs', 'https://www.nanotek.lk/uploads/product/2018-20240420061514-Untitled-1%20(2).png');
 
@@ -79,7 +81,7 @@ VALUES (7, 'Acer', 'Aspire A15-51P-39HQ', 'Intel® Core™ i3-100U Processor (10
 
 -- Inserting laptop08
 INSERT INTO laptop (id, brand, model, processor, ram, storage, display, gpu, weight, battery, image_link)
-VALUES (8, 'Dell', 'Inspiron 3520', 'Intel® Core™ i5-1235U (12M Cache, up to 4.40GHz)', 
+VALUES (8, 'Dell', 'Inspiron 3520 i5 12th Gen', 'Intel® Core™ i5-1235U (12M Cache, up to 4.40GHz)', 
         '8GB DDR4 2666MHz', '512GB NVME M.2 SSD', '15.6" FHD (1920x1080) IPS-Level', 
         'Intel UHD Graphics', '1.65kg', '41WHrs', 'https://www.nanotek.lk/uploads/product/1638-20240924175012-dell-inspiron-3520-laptop-396-cm-156-full-hd-intel-core-i5-i5-1235u-8-gb-ddr4-sdram-512-gb-ssd-wi-fi-6-80211ax-windows-11-black.png');
 
@@ -92,7 +94,7 @@ VALUES (9, 'HP', 'Victus 15 FB2082WM', 'AMD Ryzen™ 5 8645HS (6 Core, 12 Thread
         'https://www.nanotek.lk/uploads/product/1426-20240809183526-HP%20Victus%2015%202023.png');
 
 INSERT INTO laptop (id, brand, model, processor, ram, storage, display, gpu, weight, battery, image_link)
-VALUES (11, 'Lenovo', 'LOQ 15IAX9', 'Intel® Core™ i5-12450HX (12M Cache, up to 4.40 GHz)', 
+VALUES (11, 'Lenovo', 'LOQ 15IAX9 i5 12th GEN HX', 'Intel® Core™ i5-12450HX (12M Cache, up to 4.40 GHz)', 
         '16GB DDR5 4800Mhz (8GB X 2)',  '512GB SSD NVMe GEN4', 
         '15.6" FHD (1920x1080) IPS 300nits Anti-glare, 100% sRGB, 144Hz, G-SYNC®', 
         'NVIDIA® GeForce RTX™ 2050 4GB GDDR6 TGP 65W', '2.38 kg', '60 WHr', 
